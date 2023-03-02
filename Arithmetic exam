@@ -1,0 +1,83 @@
+import random
+ops = {'+' : lambda x, y: x + y,
+    '-' : lambda x, y: x - y,
+    '*' : lambda x, y: x * y}
+list1_oper = ['+', '-', '*']
+yes = ['yes', 'Y', 'Yes', 'YES', 'y']
+count = 0
+success = 0
+def random1():
+    a = random.randint(2, 9)
+    b = random.randint(2, 9)
+    opss = random.choice(list1_oper)
+    print(str(a) + ' ' + opss + ' ' + str(b))
+    task = str(a) + ' ' + opss + ' ' + str(b)
+    calc = ops[opss] (a, b)
+    return calc, task
+def random2():
+    d = random.randint(11, 29)
+    print(d)
+    return d
+    
+        
+while True:
+    
+    print('Which level do you want? Enter a number:\n1 - simple operations with numbers 2-9\n2 - integral squares of 11-29')
+    level = input()
+    if int(level) == 1 or int(level) == 2:
+        break
+    else:
+        print('Incorrect format.')
+        continue
+        
+while True:
+    
+    if count == 5:
+            print(f'Your mark is {success}/5. Would you like to save the result? Enter yes or no.')
+            yes_no = input()
+            if yes_no in yes:
+                print('What is your name?')
+                name = input()
+
+                if int(level) ==1:
+                    with open('results.txt', 'a+', encoding='utf-8') as file:
+                        file.write(f'{name}: {success}/5 in level 1 (simple operations with numbers 2-9).\n')
+                        file.close()
+                elif int(level) == 2:
+                    with open('results.txt', 'a+', encoding='utf-8') as file:
+                        file.write(f'{name}: {success}/5 in level 2 (integral squares of 11-29).\n')
+                        file.close()
+                print('The results are saved in "results.txt".')
+                break
+            else:
+                break
+                
+    if int(level) == 1:
+        result, task = random1()
+            
+            
+    elif int(level) == 2:
+        square = random2()
+        result = square ** 2
+    
+    while True:
+        answer = input()
+        
+        try:
+            if int(answer) == result: 
+                print('Right!')
+                success +=1
+                count += 1
+                break
+            
+            else:
+                print('Wrong!')
+                count += 1
+                break
+            
+        except ValueError:
+            print('Incorrect format.')
+            if int(level) == 1:
+                print(task)
+            elif int(level) == 2:
+                print(square)
